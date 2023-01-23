@@ -44,10 +44,13 @@ export default function Home({
         <title>Create Next App</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main>
-        {movieData.map((movie: Movie, i: number) => (
-          <MovieCard {...movie} key={i} />
-        ))}
+      <main className='bg-lightBackground mx-auto'>
+        <section className='grid grid-cols-auto-fit-250 p-6 gap-6'>
+          {movieData.map(
+            (movie: Movie, i: number) =>
+              movie.poster && <MovieCard {...movie} key={i} />
+          )}
+        </section>
       </main>
     </>
   );
