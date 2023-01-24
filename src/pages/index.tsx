@@ -22,21 +22,7 @@ export async function getServerSideProps() {
 export default function Home({
   isConnected,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const {
-    data: movieData,
-    loading,
-    error,
-  } = useFetchData("http://localhost:3000/api/movies");
-
-  if (loading || !isConnected) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
-  console.log(movieData);
+  if (!isConnected) return <h1>Connecting</h1>;
 
   return (
     <>
@@ -45,14 +31,7 @@ export default function Home({
 
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='bg-lightBackground mx-auto'>
-        <section className='grid grid-cols-auto-fit-250 p-6 gap-6'>
-          {movieData.map(
-            (movie: Movie, i: number) =>
-              movie.poster && <MovieCard {...movie} key={i} />
-          )}
-        </section>
-      </main>
+      <main className='bg-lightBackground mx-auto'></main>
     </>
   );
 }
