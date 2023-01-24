@@ -4,7 +4,14 @@ import { Movie } from "@/types/types";
 import Link from "next/dist/client/link";
 import { useState } from "react";
 
-export default function MovieCard({ _id, title, poster, year, plot }: Movie) {
+export default function MovieCard({
+  _id,
+  title,
+  poster,
+  year,
+  plot,
+  imdb,
+}: Movie) {
   const [showPlot, setShowPlot] = useState(false);
   const [isImageFound, setIsImageFound] = useState(true);
 
@@ -37,6 +44,7 @@ export default function MovieCard({ _id, title, poster, year, plot }: Movie) {
             <p className=' text-center text-paragraph text-m font-medium'>
               {plot}
             </p>
+            <div>{}</div>
           </div>
         )}
       </div>
