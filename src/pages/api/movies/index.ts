@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // limit the result to 10, and convert it to an array
     const movies = await db
       .collection("movies") // Collection name
-      .find({}) // Find all documents.
+      .find({type : "movie"}) // Find all documents.
       .sort({ metacritic: -1 }) // | -1 = descending | 1= ascending |
       .limit(20) // limit to only 10 results
       .toArray(); // convert the cursor returned by the find() method into an array.

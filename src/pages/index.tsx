@@ -1,9 +1,8 @@
 import Head from "next/head";
 import clientPromise from "@/lib/mongodb"; // MODULE PATH EXAMPLE
 import { InferGetServerSidePropsType } from "next";
-import MovieCard from "../components/MovieCard/MovieCard";
-import useFetchData from "@/hooks/useFetchData";
-import { Movie } from "@/types/types";
+import MovieWrapper from "@/components/MovieWrapper/MovieWrapper";
+import { useGetVideoData } from "@/hooks/useGetVideoData";
 
 export async function getServerSideProps() {
   try {
@@ -22,6 +21,15 @@ export async function getServerSideProps() {
 export default function Home({
   isConnected,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const movieTitle = "godfather trailer";
+  const { videoData, isLoading } = useGetVideoData(movieTitle);
+
+  console.log(JSON.stringify(videoData));
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   if (!isConnected) return <h1>Connecting</h1>;
 
   return (
@@ -31,7 +39,9 @@ export default function Home({
 
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='bg-lightBackground mx-auto'></main>
+      <main className='bg-lightBackground mx-auto'>
+        <MovieWrapper />
+      </main>
     </>
   );
 }
