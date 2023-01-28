@@ -1,92 +1,152 @@
-import Link from "next/link";
-import { useState } from "react";
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-function NavLink({ to, children }) {
-  return (
-    <Link href={to} className={`mx-4`}>
-      {children}
-    </Link>
-  );
-}
+const navigation = [
+  { name: "New", href: "/movies/new", current: true },
+  { name: "Top 10", href: "/movies/top", current: false },
+  { name: "Tv Series", href: "/series", current: false },
+  { name: "Genres", href: "/movies", current: false },
+];
 
-function MobileNav({ open, setOpen }) {
-  return (
-    <div
-      className={`absolute top-0 left-0 h-screen border-solid border-2 border-indigo-600 w-screen bg-background transform ${
-        open ? "-translate-x-0" : "-translate-x-full"
-      } transition-transform duration-300 ease-in-out filter drop-shadow-md `}>
-      <div className='flex items-center justify-center filter drop-shadow-md bg-background h-20'>
-        {" "}
-        {/*logo container*/}
-        <Link className='text-xl font-semibold text-greenText' href='/'>
-          NETFLIX CINEMA
-        </Link>
-      </div>
-      <div className='flex flex-col ml-4'>
-        <a
-          className='text-xl font-medium my-4'
-          href='/about'
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }>
-          About
-        </a>
-        <a
-          className='text-xl font-normal my-4'
-          href='/contact'
-          onClick={() =>
-            setTimeout(() => {
-              setOpen(!open);
-            }, 100)
-          }>
-          Contact
-        </a>
-      </div>
-    </div>
-  );
+function classNames(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
   return (
-    <nav className='flex filter drop-shadow-md bg-background px-4 py-4 h-20 items-center'>
-      <MobileNav open={open} setOpen={setOpen} />
-      <div className='w-3/12 flex items-center'>
-        <Link className='text-2xl text-greenText font-semibold' href='/'>
-          NETFLIX CINEMA
-        </Link>
-      </div>
-      <div className='w-9/12 flex justify-end items-center'>
-        <div
-          className='z-50 flex relative w-8 h-8 flex-col justify-between items-center md:hidden'
-          onClick={() => {
-            setOpen(!open);
-          }}>
-          {/* hamburger button */}
-          <span
-            className={`h-1 w-full bg-greenText rounded-lg transform transition duration-300 ease-in-out ${
-              open ? "rotate-45 translate-y-3.5" : ""
-            }`}
-          />
-          <span
-            className={`h-1 w-full bg-greenText rounded-lg transition-all duration-300 ease-in-out ${
-              open ? "w-0" : "w-full"
-            }`}
-          />
-          <span
-            className={`h-1 w-full bg-greenText rounded-lg transform transition duration-300 ease-in-out ${
-              open ? "-rotate-45 -translate-y-3.5" : ""
-            }`}
-          />
-        </div>
+    <Disclosure as='nav' className='bg-background'>
+      {({ open }) => (
+        <>
+          <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
+            <div className='relative flex h-16 items-center justify-between'>
+              <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
+                {/* Mobile menu button*/}
+                <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-paragraph hover:bg-gray-700 hover:text-highlight focus:outline-none focus:ring-2 focus:ring-inset focus:ring-highlight'>
+                  <span className='sr-only'>Open main menu</span>
+                  {open ? (
+                    <XMarkIcon className='block h-6 w-6' aria-hidden='true' />
+                  ) : (
+                    <Bars3Icon className='block h-6 w-6' aria-hidden='true' />
+                  )}
+                </Disclosure.Button>
+              </div>
+              <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
+                <div className='flex flex-shrink-0 items-center'>
+                  <h1 className='text-greenText '>Netflix Cinema</h1>
+                </div>
+                <div className='hidden sm:ml-6 sm:block'>
+                  <div className='flex space-x-4'>
+                    {navigation.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(
+                          item.current
+                            ? "bg-background text-white"
+                            : "text-paragraph hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
+                        )}
+                        aria-current={item.current ? "page" : undefined}>
+                        {item.name}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
+                <button
+                  type='button'
+                  className='rounded-full bg-background p-1 text-paragraph hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-background'>
+                  <span className='sr-only'>View notifications</span>
+                  <BellIcon className='h-6 w-6' aria-hidden='true' />
+                </button>
 
-        <div className='hidden md:flex text-greenText'>
-          <NavLink to='/contact'>CONTACT</NavLink>
-          <NavLink to='/about'>ABOUT</NavLink>
-        </div>
-      </div>
-    </nav>
+                {/* Profile dropdown */}
+                <Menu as='div' className='relative ml-3'>
+                  <div>
+                    <Menu.Button className='flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
+                      <span className='sr-only'>Open user menu</span>
+                      <img
+                        className='h-8 w-8 rounded-full'
+                        src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                        alt=''
+                      />
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter='transition ease-out duration-100'
+                    enterFrom='transform opacity-0 scale-95'
+                    enterTo='transform opacity-100 scale-100'
+                    leave='transition ease-in duration-75'
+                    leaveFrom='transform opacity-100 scale-100'
+                    leaveTo='transform opacity-0 scale-95'>
+                    <Menu.Items className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href='#'
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}>
+                            Your Profile
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href='#'
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}>
+                            Settings
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href='#'
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}>
+                            Sign out
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
+            </div>
+          </div>
+
+          <Disclosure.Panel className='sm:hidden'>
+            <div className='space-y-1 px-2 pt-2 pb-3'>
+              {navigation.map((item) => (
+                <Disclosure.Button
+                  key={item.name}
+                  as='a'
+                  href={item.href}
+                  className={classNames(
+                    item.current
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                    "block px-3 py-2 rounded-md text-base font-medium"
+                  )}
+                  aria-current={item.current ? "page" : undefined}>
+                  {item.name}
+                </Disclosure.Button>
+              ))}
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
   );
 }
