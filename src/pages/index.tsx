@@ -1,33 +1,13 @@
 import Head from "next/head";
-import clientPromise from "@/lib/mongodb"; // MODULE PATH EXAMPLE
-import { InferGetServerSidePropsType } from "next";
 import MovieWrapper from "@/components/MovieWrapper/MovieWrapper";
 import { useGetVideoData } from "@/hooks/useGetVideoData";
 import Banner from "@/components/Banner/Banner";
 
-export async function getServerSideProps() {
-  try {
-    await clientPromise;
-    return {
-      props: { isConnected: true },
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      props: { isConnected: false },
-    };
-  }
-}
-
-export default function Home({
-  isConnected,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Home() {
   // const { videoData, isLoading } = useGetVideoData("godfather");
   // if (isLoading || !videoData) {
   //   return <p>Loading...</p>;
   // }
-
-  if (!isConnected) return <h1>Connecting</h1>;
 
   return (
     <>
@@ -38,7 +18,7 @@ export default function Home({
       </Head>
       <main className='bg-lightBackground mx-auto'>
         {/* <Banner videoData={videoData} /> */}
-        <MovieWrapper />
+        <MovieWrapper type='movie' sort='year' limit='20' order='-1' />
       </main>
     </>
   );
