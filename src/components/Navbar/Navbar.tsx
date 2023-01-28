@@ -116,7 +116,6 @@ export default function Navbar() {
               />
             </div>
           </div>
-
           <Disclosure.Panel className='sm:hidden'>
             <div className='space-y-1 px-2 pt-2 pb-3'>
               <input

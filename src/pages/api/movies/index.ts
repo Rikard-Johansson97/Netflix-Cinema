@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "@/lib/mongodb";
+import { NextApiRequest, NextApiResponse } from 'next';
+import clientPromise from '@/lib/mongodb';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const type = req.query.type;
@@ -8,6 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const order = Number(req.query.order);
   const limit = Number(req.query.limit);
   const genre = req.query.genre;
+
   const search = req.query.search;
 
   try {
