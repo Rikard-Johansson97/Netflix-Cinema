@@ -1,4 +1,4 @@
-export type Youtube = {
+export type YoutubeType = {
     kind: string
     etag: string
     nextPageToken: string

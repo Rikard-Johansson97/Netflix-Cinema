@@ -17,9 +17,7 @@ const MovieWrapper = () => {
   if (error) {
     return <p>Error: {error}</p>;
   }
-
   console.log(movieData);
-
   return (
     <section className='grid grid-cols-auto-fit-250 p-6 gap-6'>
       {movieData.map(
