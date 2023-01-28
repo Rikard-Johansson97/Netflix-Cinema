@@ -49,7 +49,9 @@ export default function MovieCard({
           </div>
         )}
       </div>
-      <h5 className=' text-headline text-xl font-medium mt-1'>{title}</h5>
+      <h5 className=' text-headline text-xl font-medium mt-1 whitespace-nowrap text-ellipsis'>
+        {title}
+      </h5>
       <p className=' text-paragraph text-m font-medium mb-6'>{year}</p>
     </Link>
   );

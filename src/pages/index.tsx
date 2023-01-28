@@ -2,6 +2,7 @@ import Head from "next/head";
 import MovieWrapper from "@/components/MovieWrapper/MovieWrapper";
 import { useGetVideoData } from "@/hooks/useGetVideoData";
 import Banner from "@/components/Banner/Banner";
+import Navbar from "@/components/Navbar/Navbar";
 
 export default function Home() {
   // const { videoData, isLoading } = useGetVideoData("godfather");
@@ -16,9 +17,17 @@ export default function Home() {
 
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='bg-lightBackground mx-auto'>
+
+      <main className='bg-lightBackground mx-auto min-h-screen'>
+        <Navbar />
         {/* <Banner videoData={videoData} /> */}
-        <MovieWrapper type='movie' sort='year' limit='20' order='-1' />
+        <MovieWrapper
+          type='movie'
+          sort='year'
+          limit='20'
+          order='-1'
+          search=''
+        />
       </main>
     </>
   );

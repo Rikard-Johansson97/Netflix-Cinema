@@ -1,28 +1,64 @@
-import { Fragment } from "react";
+/* eslint-disable @next/next/no-img-element */
+import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  BellIcon,
+  ChevronDownIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import Link from "next/link";
+import DropMenu from "../DropMenu/DropMenu";
 
 const navigation = [
-  { name: "New", href: "/movies/new", current: true },
-  { name: "Top 10", href: "/movies/top", current: false },
-  { name: "Tv Series", href: "/series", current: false },
-  { name: "Genres", href: "/movies", current: false },
+  { name: "Movies", href: "/movies/", current: true },
+  { name: "Series", href: "/series", current: false },
 ];
 
+const genres = [
+  { name: "Action", current: false },
+  { name: "Adventure", current: false },
+  { name: "Comedy", current: false },
+  { name: "Drama", current: false },
+  { name: "Sci-Fi", current: false },
+  { name: "Thriller", current: false },
+  { name: "Romance", current: false },
+  { name: "Crime", current: false },
+  { name: "Mystery", current: false },
+  { name: "Biography", current: false },
+  { name: "Fantasy", current: false },
+  { name: "Animation", current: false },
+  { name: "Family", current: false },
+  { name: "History", current: false },
+  { name: "War", current: false },
+  { name: "Documentary", current: false },
+  { name: "Western", current: false },
+  { name: "Short", current: false },
+];
+
+const sort = [
+  { name: "Year", current: false },
+  { name: "Metacritics", current: false },
+  { name: "Low to High", current: false },
+  { name: "High to Low", current: false },
+];
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Navbar() {
+  const [showGenres, setShowGenres] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
+
   return (
     <Disclosure as='nav' className='bg-background'>
       {({ open }) => (
         <>
-          <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
+          <div className='mx-auto max-w-full px-2 sm:px-8 lg:px-8'>
             <div className='relative flex h-16 items-center justify-between'>
               <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
                 {/* Mobile menu button*/}
-                <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-paragraph hover:bg-gray-700 hover:text-highlight focus:outline-none focus:ring-2 focus:ring-inset focus:ring-highlight'>
+                <Disclosure.Button className='inline-flex items-center justify-center rounded-md p-2 text-paragraph hover:bg-gray-700 hover:text-greenText focus:outline-none focus:ring-2 focus:ring-inset focus:ring-greenText'>
                   <span className='sr-only'>Open main menu</span>
                   {open ? (
                     <XMarkIcon className='block h-6 w-6' aria-hidden='true' />
@@ -33,7 +69,11 @@ export default function Navbar() {
               </div>
               <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
                 <div className='flex flex-shrink-0 items-center'>
-                  <h1 className='text-greenText '>Netflix Cinema</h1>
+                  <Link href={"/"}>
+                    <h1 className='text-greenText text-xl font-bold'>
+                      Netflix Cinema
+                    </h1>
+                  </Link>
                 </div>
                 <div className='hidden sm:ml-6 sm:block'>
                   <div className='flex space-x-4'>
@@ -44,90 +84,58 @@ export default function Navbar() {
                         className={classNames(
                           item.current
                             ? "bg-background text-white"
-                            : "text-paragraph hover:bg-gray-700 hover:text-white",
+                            : "text-paragraph hover:bg-background hover:text-white",
                           "px-3 py-2 rounded-md text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}>
                         {item.name}
                       </a>
                     ))}
+                    <DropMenu items={genres} title='Genres' />
+                    <DropMenu items={sort} title='Sort' />
                   </div>
                 </div>
               </div>
-              <div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
-                <button
-                  type='button'
-                  className='rounded-full bg-background p-1 text-paragraph hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-background'>
-                  <span className='sr-only'>View notifications</span>
-                  <BellIcon className='h-6 w-6' aria-hidden='true' />
-                </button>
-
-                {/* Profile dropdown */}
-                <Menu as='div' className='relative ml-3'>
-                  <div>
-                    <Menu.Button className='flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
-                      <span className='sr-only'>Open user menu</span>
-                      <img
-                        className='h-8 w-8 rounded-full'
-                        src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                        alt=''
-                      />
-                    </Menu.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    enter='transition ease-out duration-100'
-                    enterFrom='transform opacity-0 scale-95'
-                    enterTo='transform opacity-100 scale-100'
-                    leave='transition ease-in duration-75'
-                    leaveFrom='transform opacity-100 scale-100'
-                    leaveTo='transform opacity-0 scale-95'>
-                    <Menu.Items className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href='#'
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}>
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href='#'
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}>
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href='#'
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}>
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
-              </div>
+              <input
+                type='search'
+                className='
+                          hidden lg:block
+                          min-w-90
+                          px-3
+                          py-1.5
+                          font-normal
+                          bg-background bg-clip-padding
+                          border border-solid border-greenText
+                          rounded
+                          transition
+                          ease-in-out
+                          focus:text-paragraph focus:bg-lightBackground focus:border-highlight focus:outline-none
+                        '
+                id='search'
+                placeholder='Search for movie'
+              />
             </div>
           </div>
-
           <Disclosure.Panel className='sm:hidden'>
             <div className='space-y-1 px-2 pt-2 pb-3'>
+              <input
+                type='search'
+                className='
+                          py-1.5
+                          px-2
+                          w-full
+                          my-2
+                          font-normal
+                          bg-background bg-clip-padding
+                          border border-solid border-greenText
+                          rounded
+                          transition
+                          ease-in-out
+                          focus:text-paragraph focus:bg-lightBackground focus:border-highlight focus:outline-none
+                        '
+                id='search'
+                placeholder='Search for movie'
+              />
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
@@ -135,14 +143,71 @@ export default function Navbar() {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      ? "bg-lightBackground text-white"
+                      : "text-paragraph hover:bg-greenText hover:text-white",
                     "block px-3 py-2 rounded-md text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}>
                   {item.name}
                 </Disclosure.Button>
               ))}
+              <div aria-current={showGenres ? "page" : undefined}>
+                <button
+                  onClick={() => setShowGenres(!showGenres)}
+                  className='inline-flex justify-center rounded-md bg-background px-4 py-2 text-sm font-medium text-paragraph shadow-sm hover:bg-lightBackground focus:outline-none focus:ring-2 focus:ring-greenText'>
+                  Genres
+                  <ChevronDownIcon
+                    className='-mr-1 ml-2 h-5 w-5'
+                    aria-hidden='true'
+                  />
+                </button>
+              </div>
+              {showGenres && (
+                <div className='px-4'>
+                  {genres.map((genre, i) => (
+                    <Disclosure.Button
+                      key={i}
+                      as='a'
+                      className={classNames(
+                        genre.current
+                          ? "bg-greenText text-white "
+                          : "text-paragraph hover:bg-greenText hover:text-background cursor-pointer",
+                        "block px-4 py-2 rounded-md text-base font-small"
+                      )}>
+                      {genre.name}
+                    </Disclosure.Button>
+                  ))}
+                </div>
+              )}
+              <div aria-current={showGenres ? "page" : undefined}>
+                <button
+                  onClick={() => setShowFilter(!showFilter)}
+                  className='inline-flex justify-center rounded-md bg-background px-4 py-2 text-sm font-medium text-paragraph shadow-sm hover:bg-lightBackground focus:outline-none focus:ring-2 focus:ring-greenText'>
+                  Filter
+                  <ChevronDownIcon
+                    className='-mr-1 ml-2 h-5 w-5'
+                    aria-hidden='true'
+                  />
+                </button>
+              </div>
+
+              {showFilter && (
+                <div className='px-4'>
+                  {sort.map((item, i) => (
+                    <Disclosure.Button
+                      key={i}
+                      as='a'
+                      className={classNames(
+                        item.current
+                          ? "bg-greenText text-white "
+                          : "text-paragraph hover:bg-greenText hover:text-background cursor-pointer",
+                        "block px-4 py-2 rounded-md text-base font-small"
+                      )}>
+                      {item.name}
+                    </Disclosure.Button>
+                  ))}
+                </div>
+              )}
             </div>
           </Disclosure.Panel>
         </>
