@@ -7,20 +7,21 @@ function classNames(...classes: string[]) {
 }
 
 interface Props {
+  title: string;
   genre?: ReactNode;
   items?: {
-    genre: string;
+    name: string;
     current: boolean;
   }[];
 }
 
-const DropMenu = ({ items }: { items: Props[] }) => {
+const DropMenu = ({ items, title }: Props) => {
   console.log(items);
   return (
     <Menu as='div' className='relative inline-block text-left'>
       <div>
         <Menu.Button className='inline-flex justify-center rounded-md bg-background px-4 py-2 text-sm font-medium text-paragraph shadow-sm hover:bg-lightBackground focus:outline-none focus:ring-2 focus:ring-greenText'>
-          Genres
+          {title}
           <ChevronDownIcon className='-mr-1 ml-2 h-5 w-5' aria-hidden='true' />
         </Menu.Button>
       </div>
@@ -33,19 +34,19 @@ const DropMenu = ({ items }: { items: Props[] }) => {
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'>
         <Menu.Items className='absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-background shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-          <div className='py-1'>
-            {items.map((item, i) => (
+          <div className='py-1 rounded-md border-2 border-greenText'>
+            {items?.map((item, i) => (
               <Menu.Item key={i}>
                 {(props) => (
                   <a
                     href='#'
                     className={classNames(
                       props.active
-                        ? "bg-lightBackground text-paragraph"
-                        : "text-gray-700",
+                        ? "bg-greenText text-background"
+                        : "text-paragraph",
                       "block px-4 py-2 text-sm"
                     )}>
-                    {item.genre}
+                    {item.name}
                   </a>
                 )}
               </Menu.Item>

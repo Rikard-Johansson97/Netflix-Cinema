@@ -16,24 +16,31 @@ const navigation = [
 ];
 
 const genres = [
-  { genre: "Action", current: false },
-  { genre: "Adventure", current: false },
-  { genre: "Comedy", current: false },
-  { genre: "Drama", current: false },
-  { genre: "Sci-Fi", current: false },
-  { genre: "Thriller", current: false },
-  { genre: "Romance", current: false },
-  { genre: "Crime", current: false },
-  { genre: "Mystery", current: false },
-  { genre: "Biography", current: false },
-  { genre: "Fantasy", current: false },
-  { genre: "Animation", current: false },
-  { genre: "Family", current: false },
-  { genre: "History", current: false },
-  { genre: "War", current: false },
-  { genre: "Documentary", current: false },
-  { genre: "Western", current: false },
-  { genre: "Short", current: false },
+  { name: "Action", current: false },
+  { name: "Adventure", current: false },
+  { name: "Comedy", current: false },
+  { name: "Drama", current: false },
+  { name: "Sci-Fi", current: false },
+  { name: "Thriller", current: false },
+  { name: "Romance", current: false },
+  { name: "Crime", current: false },
+  { name: "Mystery", current: false },
+  { name: "Biography", current: false },
+  { name: "Fantasy", current: false },
+  { name: "Animation", current: false },
+  { name: "Family", current: false },
+  { name: "History", current: false },
+  { name: "War", current: false },
+  { name: "Documentary", current: false },
+  { name: "Western", current: false },
+  { name: "Short", current: false },
+];
+
+const sort = [
+  { name: "Year", current: false },
+  { name: "Metacritics", current: false },
+  { name: "Low to High", current: false },
+  { name: "High to Low", current: false },
 ];
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -41,6 +48,7 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const [showGenres, setShowGenres] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
 
   return (
     <Disclosure as='nav' className='bg-background'>
@@ -83,7 +91,8 @@ export default function Navbar() {
                         {item.name}
                       </a>
                     ))}
-                    <DropMenu items={genres} />
+                    <DropMenu items={genres} title='Genres' />
+                    <DropMenu items={sort} title='Sort' />
                   </div>
                 </div>
               </div>
@@ -105,12 +114,29 @@ export default function Navbar() {
                 id='search'
                 placeholder='Search for movie'
               />
-              <i className='fas fa-search'></i>
             </div>
           </div>
 
           <Disclosure.Panel className='sm:hidden'>
             <div className='space-y-1 px-2 pt-2 pb-3'>
+              <input
+                type='search'
+                className='
+                          py-1.5
+                          px-2
+                          w-full
+                          my-2
+                          font-normal
+                          bg-background bg-clip-padding
+                          border border-solid border-greenText
+                          rounded
+                          transition
+                          ease-in-out
+                          focus:text-paragraph focus:bg-lightBackground focus:border-highlight focus:outline-none
+                        '
+                id='search'
+                placeholder='Search for movie'
+              />
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
@@ -137,20 +163,52 @@ export default function Navbar() {
                   />
                 </button>
               </div>
-              {showGenres &&
-                genres.map((genre, i) => (
-                  <Disclosure.Button
-                    key={i}
-                    as='a'
-                    className={classNames(
-                      genre
-                        ? "bg-lightBackground text-white"
-                        : "text-paragraph hover:bg-greenText hover:text-white",
-                      "block px-3 py-2 rounded-md text-base font-medium"
-                    )}>
-                    {genre.genre}
-                  </Disclosure.Button>
-                ))}
+              {showGenres && (
+                <div className='px-4'>
+                  {genres.map((genre, i) => (
+                    <Disclosure.Button
+                      key={i}
+                      as='a'
+                      className={classNames(
+                        genre.current
+                          ? "bg-greenText text-white "
+                          : "text-paragraph hover:bg-greenText hover:text-background cursor-pointer",
+                        "block px-4 py-2 rounded-md text-base font-small"
+                      )}>
+                      {genre.name}
+                    </Disclosure.Button>
+                  ))}
+                </div>
+              )}
+              <div aria-current={showGenres ? "page" : undefined}>
+                <button
+                  onClick={() => setShowFilter(!showFilter)}
+                  className='inline-flex justify-center rounded-md bg-background px-4 py-2 text-sm font-medium text-paragraph shadow-sm hover:bg-lightBackground focus:outline-none focus:ring-2 focus:ring-greenText'>
+                  Filter
+                  <ChevronDownIcon
+                    className='-mr-1 ml-2 h-5 w-5'
+                    aria-hidden='true'
+                  />
+                </button>
+              </div>
+
+              {showFilter && (
+                <div className='px-4'>
+                  {sort.map((item, i) => (
+                    <Disclosure.Button
+                      key={i}
+                      as='a'
+                      className={classNames(
+                        item.current
+                          ? "bg-greenText text-white "
+                          : "text-paragraph hover:bg-greenText hover:text-background cursor-pointer",
+                        "block px-4 py-2 rounded-md text-base font-small"
+                      )}>
+                      {item.name}
+                    </Disclosure.Button>
+                  ))}
+                </div>
+              )}
             </div>
           </Disclosure.Panel>
         </>
