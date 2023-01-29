@@ -12,6 +12,7 @@ export default function MovieCard({
   year,
   plot,
   imdb,
+  loading,
 }: Movie) {
   const [showPlot, setShowPlot] = useState(false);
   const [isImageFound, setIsImageFound] = useState(true);
@@ -19,6 +20,10 @@ export default function MovieCard({
   const handleError = () => {
     setIsImageFound(false);
   };
+
+  if (loading) {
+    <h1>LOADING</h1>;
+  }
 
   return (
     <Link

@@ -17,8 +17,6 @@ export interface FilterContextData {
   setSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
-
-
 export type Genre =
   | "Animation"
   | "Short"

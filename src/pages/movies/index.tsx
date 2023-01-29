@@ -4,20 +4,7 @@ import { FilterContext } from "@/context/filterContext";
 import React, { useContext } from "react";
 
 const Movies = () => {
-  const {
-    type,
-    setType,
-    sort,
-    setSort,
-    order,
-    setOrder,
-    limit,
-    setLimit,
-    genre,
-    setGenre,
-    search,
-    setSearch,
-  } = useContext(FilterContext);
+  const { type, sort, order, limit, genre, search } = useContext(FilterContext);
   return (
     <div className='bg-lightBackground'>
       <Navbar />

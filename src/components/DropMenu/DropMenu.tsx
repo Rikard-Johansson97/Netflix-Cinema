@@ -1,9 +1,7 @@
-import { FilterContext } from "@/context/filterContext";
-import { Genre } from "@/types/filterContextData";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import React, { Fragment, ReactNode, useContext } from "react";
+import React, { Fragment, ReactNode, useContext, useState } from "react";
+import DropMenuItem from "./DropMenuItem/DropMenuItem";
 
 interface Props {
   name: string;
@@ -33,14 +31,7 @@ const DropMenu = ({ items, title }: any) => {
           <div className='py-1 rounded-md border-2 border-greenText'>
             {items?.map((item: any, i: number) => (
               <Menu.Item key={i}>
-                <Link
-                  onClick={item.function}
-                  href='/movies'
-                  as={`/movies/${item.name}`}
-                  className='text-paragraph
-                    block px-4 py-2 text-sm'>
-                  {item.name}
-                </Link>
+                <DropMenuItem item={item} />
               </Menu.Item>
             ))}
           </div>

@@ -58,5 +58,6 @@
         cast: string[];
         directors: string[];
         runtime: number;
+        loading: boolean;
     }
 

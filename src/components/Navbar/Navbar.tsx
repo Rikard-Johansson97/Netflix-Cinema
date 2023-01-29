@@ -28,15 +28,25 @@ export default function Navbar() {
   const [showFilter, setShowFilter] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [searchValue, setSearchValue] = useState("");
+
+  console.log(inputValue);
 
   const sort = [
+    {
+      name: "RESET",
+      function: () => {
+        setSort("year");
+        setOrder("-1");
+        setGenre("");
+      },
+    },
     { name: "Year", function: () => setSort("year") },
     { name: "Metacritics", function: () => setSort("metacritics") },
     { name: "Low to High", function: () => setOrder("1") },
     { name: "High to Low", function: () => setOrder("-1") },
   ];
   const genres = [
+    { name: "RESET", function: () => setGenre("") },
     { name: "Action", function: () => setGenre("Action") },
     { name: "Adventure", function: () => setGenre("Adventure") },
     { name: "Comedy", function: () => setGenre("Comedy") },
@@ -146,13 +156,15 @@ export default function Navbar() {
                     placeholder='Search for movie'
                     onChange={(e) => setInputValue(e.target.value)}
                   />
-                  <FontAwesomeIcon
-                    color='grey'
-                    className='hover:text-white duration-200 absolute top-2.5 left-2.5 cursor-pointer'
-                    icon={faSearch}
-                    size='lg'
-                    onClick={() => setSearchValue(inputValue)}
-                  />
+                  <Link href={"/movies"} as={`/movies/search${inputValue}`}>
+                    <FontAwesomeIcon
+                      color='grey'
+                      className='hover:text-white duration-200 absolute top-2.5 left-2.5 cursor-pointer'
+                      icon={faSearch}
+                      size='lg'
+                      onClick={() => setSearch(inputValue)}
+                    />
+                  </Link>
                 </div>
               </div>
             </div>
@@ -175,14 +187,17 @@ export default function Navbar() {
                   focus:text-paragraph focus:bg-lightBackground focus:border-highlight focus:outline-none'
                   id='search'
                   placeholder='Search for movie'
+                  onChange={(e) => setInputValue(e.target.value)}
                 />
-                <FontAwesomeIcon
-                  color='grey'
-                  className='hover:text-white duration-200 absolute top-2.5 left-2.5 cursor-pointer'
-                  icon={faSearch}
-                  size='lg'
-                  onClick={() => setSearchValue(searchValue)}
-                />
+                <Link href={"/movies"} as={`/movies/search${inputValue}`}>
+                  <FontAwesomeIcon
+                    color='grey'
+                    className='hover:text-white duration-200 absolute top-2.5 left-2.5 cursor-pointer'
+                    icon={faSearch}
+                    size='lg'
+                    onClick={() => setSearch(inputValue)}
+                  />
+                </Link>
               </div>
             )}
           </div>
