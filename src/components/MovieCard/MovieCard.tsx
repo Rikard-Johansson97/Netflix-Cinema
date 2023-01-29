@@ -23,7 +23,7 @@ export default function MovieCard({
   return (
     <Link
       href={`/movies/${_id}`}
-      className='flex flex-col items-start justify-between relative overflow-hidden bg-no-repeat bg-cover max-w-xs'
+      className='flex flex-col items-start justify-between relative overflow-hidden bg-no-repeat bg-cover'
       data-mdb-ripple='true'
       data-mdb-ripple-color='light'
       style={{ display: isImageFound ? "block" : "none" }}>
