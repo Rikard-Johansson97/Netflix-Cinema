@@ -17,7 +17,7 @@ const MovieWrapper = ({ type, sort, order, limit, genre, search }: any) => {
 
   console.log(movieData);
   return (
-    <section className='grid grid-cols-auto-fit-250 p-4 gap-4'>
+    <section className='grid grid-cols-auto-fit-200 p-4 gap-4'>
       {movieData.map(
         (movie: Movie, i: number) =>
           movie.poster && <MovieCard {...movie} key={i} loading={loading} />

@@ -34,11 +34,7 @@ export default function Navbar() {
   const sort = [
     {
       name: "RESET",
-      function: () => {
-        setSort("year");
-        setOrder("-1");
-        setGenre("");
-      },
+      function: () => setSort("year"),
     },
     { name: "Year", function: () => setSort("year") },
     { name: "Metacritics", function: () => setSort("metacritics") },

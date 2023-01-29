@@ -1,11 +1,13 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { forwardRef, useRef, useState } from "react";
 
-const DropMenuItem = ({ item }: any) => {
+const DropMenuItem = forwardRef(({ item }: any, ref) => {
+  const linkRef = useRef<HTMLAnchorElement>(null);
   return (
     <Link
+      ref={linkRef}
       onClick={() => {
-        !item.function();
+        item.function();
       }}
       href='/movies'
       as={`/movies/${item.name}`}
@@ -13,6 +15,8 @@ const DropMenuItem = ({ item }: any) => {
       {item.name}
     </Link>
   );
-};
+});
+
+DropMenuItem.displayName = "DropMenuItem";
 
 export default DropMenuItem;

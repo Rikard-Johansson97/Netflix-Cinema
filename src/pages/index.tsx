@@ -23,7 +23,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main className='bg-lightBackground mx-auto min-h-screen'>
+      <main className=' bg-lightBackground mx-auto min-h-screen'>
         <Navbar />
         {/* <Banner videoData={videoData} /> */}
         <MovieWrapper

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: "jit",
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -14,8 +15,8 @@ module.exports = {
         greenText: "#2cb67d",
       },
       gridTemplateColumns: {
-        "auto-fill-250": "repeat(auto-fill, minmax(250px, 1fr))",
-        "auto-fit-250": "repeat(auto-fit, minmax(250px, 1fr))",
+        "auto-fill-200": "repeat(auto-fill, minmax(200px, 1fr))",
+        "auto-fit-200": "repeat(auto-fit, minmax(200px, 1fr))",
       },
       aspectRatio: {
         "19/16": "19 / 16",
@@ -25,5 +26,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@kamona/tailwindcss-perspective")],
 };
