@@ -1,25 +1,16 @@
 import useFetchData from "@/hooks/useFetchData";
+import { FilterContextData } from "@/types/filterContextData";
 import { Movie } from "@/types/types";
-import { UrlQuery } from "@/types/urlQuery";
 import React from "react";
 import MovieCard from "../MovieCard/MovieCard";
 
-const MovieWrapper = ({
-  type,
-  sort,
-  order,
-  limit,
-  genre,
-  search,
-}: UrlQuery) => {
-  const url = process.env.NEXT_PUBLIC_SERVER_URL;
-
-  let apiUrl = `${url}/api/movies?type=${type}&sort=${sort}&order=${order}&limit=${limit}`;
-
-  if (genre) apiUrl += `&genre=${genre}`;
-  else if (search) apiUrl += `&search=${search}`;
-
-  const { data: movieData, loading, error } = useFetchData(apiUrl);
+const MovieWrapper = ({ type, sort, order, limit, genre, search }: any) => {
+  console.log(genre);
+  const {
+    data: movieData,
+    loading,
+    error,
+  } = useFetchData(type, sort, order, limit, genre, search);
 
   if (loading) {
     return <p>Loading...</p>;

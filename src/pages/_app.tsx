@@ -4,11 +4,14 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
 import type { AppProps } from "next/app";
 import Navbar from "@/components/Navbar/Navbar";
+import FilterContextProvider from "@/context/filterContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Component {...pageProps} />
+      <FilterContextProvider>
+        <Component {...pageProps} />
+      </FilterContextProvider>
     </>
   );
 }

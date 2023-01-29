@@ -1,22 +1,18 @@
+import { FilterContext } from "@/context/filterContext";
+import { Genre } from "@/types/filterContextData";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import React, { Fragment, ReactNode } from "react";
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import Link from "next/link";
+import React, { Fragment, ReactNode, useContext } from "react";
 
 interface Props {
+  name: string;
+  function: any;
+  items?: [];
   title: string;
-  genre?: ReactNode;
-  items?: {
-    name: string;
-    current: boolean;
-  }[];
 }
 
-const DropMenu = ({ items, title }: Props) => {
-  console.log(items);
+const DropMenu = ({ items, title }: any) => {
   return (
     <Menu as='div' className='relative inline-block text-left'>
       <div>
@@ -35,20 +31,16 @@ const DropMenu = ({ items, title }: Props) => {
         leaveTo='transform opacity-0 scale-95'>
         <Menu.Items className='absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-background shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
           <div className='py-1 rounded-md border-2 border-greenText'>
-            {items?.map((item, i) => (
+            {items?.map((item: any, i: number) => (
               <Menu.Item key={i}>
-                {(props) => (
-                  <a
-                    href='#'
-                    className={classNames(
-                      props.active
-                        ? "bg-greenText text-background"
-                        : "text-paragraph",
-                      "block px-4 py-2 text-sm"
-                    )}>
-                    {item.name}
-                  </a>
-                )}
+                <Link
+                  onClick={item.function}
+                  href='/movies'
+                  as={`/movies/${item.name}`}
+                  className='text-paragraph
+                    block px-4 py-2 text-sm'>
+                  {item.name}
+                </Link>
               </Menu.Item>
             ))}
           </div>
