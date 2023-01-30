@@ -1,8 +1,22 @@
-import React from "react";
+import React, { FC } from "react";
 
-const Seat = () => {
+interface SeatProps {
+  occupied: boolean;
+  id: string;
+  selected: boolean;
+  onClick: any;
+}
+
+const Seat: FC<SeatProps> = (props) => {
+  const { occupied, id } = props;
+  console.log(id);
   return (
-    <div className=' bg-background w-full rounded-t-xl aspect-[10/16] border border-highlight hover:bg-greenText cursor-pointer mt-2'></div>
+    <div
+      className={
+        occupied
+          ? "bg-highlight w-full rounded-b-xl aspect-[10/16] border border-highlight cursor-not-allowed mt-2"
+          : "bg-background w-full rounded-b-xl aspect-[10/16] border border-greenText hover:bg-greenText cursor-pointer mt-2"
+      }></div>
   );
 };
 
