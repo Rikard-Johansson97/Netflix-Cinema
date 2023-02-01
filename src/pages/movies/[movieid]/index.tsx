@@ -5,14 +5,12 @@ import Cinema from "@/components/Cinema/Cinema";
 
 const Movie = () => {
   const router = useRouter();
-  const { id } = router.query;
-
-  console.log(id);
+  const { movieid } = router.query;
 
   return (
     <div className='bg-lightBackground mx-auto min-h-screen'>
       <Navbar />
-      <Cinema />
+      <Cinema id={movieid} />
     </div>
   );
 };
