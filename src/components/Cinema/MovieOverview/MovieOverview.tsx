@@ -2,11 +2,11 @@
 import React, { FC } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
-interface BookingProps {
+interface MovieOverviewProps {
   movieId: any;
 }
 
-const Booking: FC<BookingProps> = ({ movieId }) => {
+const MovieOverview: FC<MovieOverviewProps> = ({ movieId }) => {
   const [seats, setSeats] = useLocalStorage<JSX.Element[]>(
     `seats-${movieId}`,
     []
@@ -14,32 +14,31 @@ const Booking: FC<BookingProps> = ({ movieId }) => {
 
   return (
     <div>
-      <div className='grid place-items-center font-mono'>
-        <div className='rounded-md bg-background shadow-lg'>
-          <div className='md:flex px-4 leading-none max-w-4xl'>
+      <div className='flex flex-col p-4  max-w-3xl m-auto xl:flex-1'>
+        <div className='rounded-md bg-lightBackground '>
+          <div className='md:flex px-4'>
             <div className='flex-none '>
               <img
                 src='https://creativereview.imgix.net/content/uploads/2019/12/joker_full.jpg?auto=compress,format&q=60&w=1012&h=1500'
                 alt='pic'
-                className='h-72 w-56 rounded-md shadow-2xl transform -translate-y-4 border-4 border-gray-300 shadow-lg'
+                className='h-72 w-56 rounded-md shadow-2xl border-4 border-greenText'
               />
             </div>
-            <div className='flex-col text-gray-300'>
-              <p className='pt-4 text-2xl font-bold'>Joker (2020)</p>
-              <hr className='hr-text' data-content />
-              <div className='text-md flex justify-between px-4 my-2'>
+            <div className='flex-col text-paragraph justify-center h-full items-center p-4'>
+              <p className=' text-2xl font-bold'>Joker (2020)</p>
+              <div className='text-md flex justify-between my-2'>
                 <span className='font-bold'>
                   2h 2min | Crime, Drama, Thriller
                 </span>
                 <span className='font-bold' />
               </div>
-              <p className='hidden md:block px-4 my-4 text-sm text-left'>
+              <p className='hidden md:block my-4 text-sm text-left'>
                 In Gotham City, mentally troubled comedian Arthur Fleck is
                 disregarded and mistreated by society. He then embarks on a
                 downward spiral of revolution and bloody crime. This path brings
                 him face-to-face with his alter-ego: the Joker.{" "}
               </p>
-              <p className='flex text-md px-4 my-2'>
+              <p className='flex text-md my-2'>
                 Rating: 9.0/10
                 <span className='font-bold px-2'>|</span>
                 Mood: Dark
@@ -70,4 +69,4 @@ const Booking: FC<BookingProps> = ({ movieId }) => {
   );
 };
 
-export default Booking;
+export default MovieOverview;

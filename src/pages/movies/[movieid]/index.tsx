@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Navbar from "@/components/Navbar/Navbar";
 import Cinema from "@/components/Cinema/Cinema";
+import MovieOverview from "@/components/Cinema/MovieOverview/MovieOverview";
+import Banner from "@/components/Banner/Banner";
+import useFetchMovieId from "@/hooks/useFetchMovieId";
 
 const Movie = () => {
-  const [movieId, setMovieId] = useState<any>();
   const router = useRouter();
+  const { movieid } = router.query;
+  const [movieId, setMovieId] = useState<any>();
+  const { data, error, loading } = useFetchMovieId(movieid as string);
 
   React.useEffect(() => {
     if (router.isReady) {
@@ -13,12 +18,18 @@ const Movie = () => {
     }
   }, [router.isReady]);
 
+  if (loading) return <h2>LOADING</h2>;
+
   return (
     <div
       suppressHydrationWarning={true}
-      className='bg-lightBackground mx-auto min-h-screen'>
+      className='bg-lightBackground mx-auto min-h-screen w-full'>
       <Navbar />
-      <Cinema movieId={movieId} />
+      <Banner movieTitle={data?.title} />
+      <div className='xl:flex'>
+        <MovieOverview movieId={movieId} />
+        <Cinema movieId={movieId} />
+      </div>
     </div>
   );
 };

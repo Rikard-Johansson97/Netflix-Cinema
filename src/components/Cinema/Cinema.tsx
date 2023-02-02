@@ -3,7 +3,7 @@ import React, { useState, useEffect, FC } from "react";
 import Seat from "./Seat/Seat";
 import { v4 as uuidv4 } from "uuid";
 import { useLocalStorage } from "usehooks-ts";
-import Booking from "./Booking/Booking";
+import Booking from "./MovieOverview/MovieOverview";
 
 interface CinemaProps {
   movieId: string | any;
@@ -26,7 +26,6 @@ const Cinema: FC<CinemaProps> = ({ movieId }) => {
     `seats-${movieId}`,
     []
   );
-  console.log(seats);
 
   useEffect(() => {
     if (!seats.length) {
@@ -52,7 +51,7 @@ const Cinema: FC<CinemaProps> = ({ movieId }) => {
   return (
     <div
       suppressHydrationWarning={true}
-      className=' p-8 s sm:p-10 perspective-10'>
+      className=' p-8 s sm:p-10 perspective-10 xl:flex-1'>
       <div className='shadow-2xl max-w-lg m-auto  -rotate-x-50'>
         {/* SCREEN */}
         <div className='aspect-video bg-greenText pb-4 pt-4 sm:pt-8 sm:pb-8'>
@@ -95,7 +94,6 @@ const Cinema: FC<CinemaProps> = ({ movieId }) => {
           ))}
         </div>
       </div>
-      <Booking movieId={movieId} />
     </div>
   );
 };

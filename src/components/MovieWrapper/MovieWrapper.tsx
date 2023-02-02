@@ -15,7 +15,6 @@ const MovieWrapper = ({ type, sort, order, limit, genre, search }: any) => {
     return <p>Error: {error}</p>;
   }
 
-  console.log(movieData);
   return (
     <section className='grid grid-cols-auto-fit-200 p-4 gap-4'>
       {movieData.map(
