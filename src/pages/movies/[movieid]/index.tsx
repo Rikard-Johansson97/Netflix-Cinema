@@ -8,7 +8,9 @@ const Movie = () => {
   const { movieid } = router.query;
 
   return (
-    <div className='bg-lightBackground mx-auto min-h-screen'>
+    <div
+      suppressHydrationWarning={true}
+      className='bg-lightBackground mx-auto min-h-screen'>
       <Navbar />
       <Cinema id={movieid} />
     </div>

@@ -8,8 +8,22 @@ interface CinemaProps {
   id: string | any;
 }
 
+interface SeatType {
+  occupied: boolean;
+  id: string;
+  selected: boolean;
+  onCLick?: any;
+  movieId: string;
+  map: any;
+  slice: any;
+  length: number;
+}
+
 const Cinema: FC<CinemaProps> = ({ id }) => {
-  const [seats, setSeats] = useLocalStorage<JSX.Element[]>(`seats-${id}`, []);
+  const [seats, setSeats] = useLocalStorage<JSX.Element[] | SeatType>(
+    `seats-${id}`,
+    []
+  );
 
   useEffect(() => {
     if (!seats.length) {
@@ -25,9 +39,14 @@ const Cinema: FC<CinemaProps> = ({ id }) => {
     }
   }, []);
 
-  console.log(seats);
+  const leftSection = seats.slice(0, 20);
+  const middleSection = seats.slice(20, 40);
+  const rightSection = seats.slice(40, 60);
+
   return (
-    <div className=' p-8 s sm:p-10 perspective-10'>
+    <div
+      suppressHydrationWarning={true}
+      className=' p-8 s sm:p-10 perspective-10'>
       <div className='shadow-2xl max-w-lg m-auto  -rotate-x-50'>
         {/* SCREEN */}
         <div className='aspect-video bg-greenText pb-4 pt-4 sm:pt-8 sm:pb-8'>
@@ -55,12 +74,38 @@ const Cinema: FC<CinemaProps> = ({ id }) => {
       </div>
       <div className='grid grid-cols-3 max-w-lg m-auto rotate-x-40'>
         <div className='p-4 grid gap-1 grid-cols-4'>
-          {seats?.map((seat) => (
-            <div key={seat.id}></div>
+          {leftSection.map((seat: any) => (
+            <Seat
+              key={seat.id}
+              id={seat.id}
+              movieId={id}
+              occupied={seat.occupied}
+              selected={seat.selected}
+            />
           ))}
         </div>
-        <div className='p-4 grid gap-1 grid-cols-4'></div>
-        <div className='p-4 grid gap-1 grid-cols-4'></div>
+        <div className='p-4 grid gap-1 grid-cols-4'>
+          {middleSection.map((seat: any) => (
+            <Seat
+              key={seat.id}
+              id={seat.id}
+              movieId={id}
+              occupied={seat.occupied}
+              selected={seat.selected}
+            />
+          ))}
+        </div>
+        <div className='p-4 grid gap-1 grid-cols-4'>
+          {rightSection.map((seat: any) => (
+            <Seat
+              key={seat.id}
+              id={seat.id}
+              movieId={id}
+              occupied={seat.occupied}
+              selected={seat.selected}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
