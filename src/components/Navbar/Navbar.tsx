@@ -29,8 +29,6 @@ export default function Navbar() {
   const [showSearch, setShowSearch] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  console.log(inputValue);
-
   const sort = [
     {
       name: "RESET",

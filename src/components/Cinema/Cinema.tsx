@@ -3,9 +3,10 @@ import React, { useState, useEffect, FC } from "react";
 import Seat from "./Seat/Seat";
 import { v4 as uuidv4 } from "uuid";
 import { useLocalStorage } from "usehooks-ts";
+import Booking from "./Booking/Booking";
 
 interface CinemaProps {
-  id: string | any;
+  movieId: string | any;
 }
 
 interface SeatType {
@@ -17,22 +18,27 @@ interface SeatType {
   map: any;
   slice: any;
   length: number;
+  seat: number;
 }
 
-const Cinema: FC<CinemaProps> = ({ id }) => {
+const Cinema: FC<CinemaProps> = ({ movieId }) => {
   const [seats, setSeats] = useLocalStorage<JSX.Element[] | SeatType>(
-    `seats-${id}`,
+    `seats-${movieId}`,
     []
   );
+  console.log(seats);
 
   useEffect(() => {
     if (!seats.length) {
       const seats = Array.from({ length: 60 }, (_, i) => {
         const id = uuidv4();
         return {
+          seat: i + 1,
+          movieId: movieId,
           id,
           occupied: Math.random() <= 0.33,
           selected: false,
+          price: 100,
         };
       });
       setSeats(seats as any);
@@ -74,39 +80,22 @@ const Cinema: FC<CinemaProps> = ({ id }) => {
       </div>
       <div className='grid grid-cols-3 max-w-lg m-auto rotate-x-40'>
         <div className='p-4 grid gap-1 grid-cols-4'>
-          {leftSection.map((seat: any) => (
-            <Seat
-              key={seat.id}
-              id={seat.id}
-              movieId={id}
-              occupied={seat.occupied}
-              selected={seat.selected}
-            />
+          {leftSection.map((seat: SeatType) => (
+            <Seat key={seat.id} {...seat} />
           ))}
         </div>
         <div className='p-4 grid gap-1 grid-cols-4'>
-          {middleSection.map((seat: any) => (
-            <Seat
-              key={seat.id}
-              id={seat.id}
-              movieId={id}
-              occupied={seat.occupied}
-              selected={seat.selected}
-            />
+          {middleSection.map((seat: SeatType) => (
+            <Seat key={seat.id} {...seat} />
           ))}
         </div>
         <div className='p-4 grid gap-1 grid-cols-4'>
-          {rightSection.map((seat: any) => (
-            <Seat
-              key={seat.id}
-              id={seat.id}
-              movieId={id}
-              occupied={seat.occupied}
-              selected={seat.selected}
-            />
+          {rightSection.map((seat: SeatType) => (
+            <Seat key={seat.id} {...seat} />
           ))}
         </div>
       </div>
+      <Booking movieId={movieId} />
     </div>
   );
 };
