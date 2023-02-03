@@ -2,7 +2,7 @@ import { Movie } from '@/types/types';
 import { useState, useEffect } from 'react';
 
 const useFetchMovieId = (id: string) => {
-  const [data, setData] = useState<Movie[] | []>();
+  const [data, setData] = useState<Movie>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   

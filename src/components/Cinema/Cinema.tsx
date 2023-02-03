@@ -3,10 +3,12 @@ import React, { useState, useEffect, FC } from "react";
 import Seat from "./Seat/Seat";
 import { v4 as uuidv4 } from "uuid";
 import { useLocalStorage } from "usehooks-ts";
-import Booking from "./MovieOverview/MovieOverview";
+import Booking from "../MovieOverview/MovieOverview";
+import { Movie } from "@/types/types";
 
 interface CinemaProps {
   movieId: string | any;
+  movieData?: Movie | undefined;
 }
 
 interface SeatType {

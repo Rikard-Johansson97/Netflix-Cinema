@@ -6,7 +6,7 @@ import React, { useContext } from "react";
 const Movies = () => {
   const { type, sort, order, limit, genre, search } = useContext(FilterContext);
   return (
-    <div className='bg-lightBackground'>
+    <div className='bg-lightBackground min-h-screen w-full'>
       <Navbar />
       <MovieWrapper
         type={"movie"}

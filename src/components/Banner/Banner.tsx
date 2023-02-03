@@ -1,36 +1,47 @@
 import { useGetVideoData } from "@/hooks/useGetVideoData";
 import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
+import MovieOverview from "../MovieOverview/MovieOverview";
 interface Props {
-  movieTitle: string;
+  movieTitle: string | undefined;
+  movieId: string;
 }
 
-const Banner = ({ movieTitle }: Props) => {
-  const { videoData, isLoading } = useGetVideoData(movieTitle);
+const Banner = ({ movieTitle, movieId }: Props) => {
+  const { videoData, isLoading } = useGetVideoData(movieTitle as string);
+  // const videoId = videoData?.items[0].id.videoId;
 
   const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
+  const [aspectRatio, setAspectRatio] = useState(5);
+
+  const updateSize = (newHeight: number) => {
+    setWidth(window.innerWidth);
+    setHeight(window.innerWidth * (newHeight / 16));
+  };
 
   useEffect(() => {
-    const updateSize = () => {
-      setWidth(window.innerWidth);
-      setHeight(window.innerWidth * (5 / 16));
-    };
+    window.addEventListener("resize", () => updateSize(aspectRatio));
+    updateSize(aspectRatio);
 
-    window.addEventListener("resize", updateSize);
-    updateSize();
-
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
+    return () =>
+      window.removeEventListener("resize", () => updateSize(aspectRatio));
+  }, [aspectRatio]);
 
   return (
-    <div className='youtube-container'>
+    <div className=''>
       <ReactPlayer
         className='aspect-video'
-        url={`https://www.youtube.com/watch?v=${videoData?.items[0].id.videoId}`}
+        url={`https://www.youtube.com/watch?v=t433PEQGErc&ab_channel=WarnerBros.Pictures}`}
         width={width}
         height={height}
-        onPlay={() => {}}
+        style={{ transition: "300ms" }}
+        onPlay={() => {
+          setAspectRatio(9);
+        }}
+        onPause={() => {
+          setAspectRatio(5);
+        }}
       />
     </div>
   );

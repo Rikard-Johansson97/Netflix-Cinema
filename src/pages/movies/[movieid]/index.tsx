@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Navbar from "@/components/Navbar/Navbar";
 import Cinema from "@/components/Cinema/Cinema";
-import MovieOverview from "@/components/Cinema/MovieOverview/MovieOverview";
+import MovieOverview from "@/components/MovieOverview/MovieOverview";
 import Banner from "@/components/Banner/Banner";
 import useFetchMovieId from "@/hooks/useFetchMovieId";
 
@@ -25,11 +25,9 @@ const Movie = () => {
       suppressHydrationWarning={true}
       className='bg-lightBackground mx-auto min-h-screen w-full'>
       <Navbar />
-      <Banner movieTitle={data?.title} />
-      <div className='xl:flex'>
-        <MovieOverview movieId={movieId} />
-        <Cinema movieId={movieId} />
-      </div>
+      <Banner movieTitle={data?.title} movieId={movieId} />
+      <MovieOverview movieId={movieId} movieData={data} />
+      <Cinema movieId={movieId} movieData={data} />
     </div>
   );
 };
