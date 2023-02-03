@@ -72,6 +72,7 @@
         slice: any;
         length: number;
         seat: number;
+        booked: boolean;
         find: () => any;
         filter: () => any;
       }

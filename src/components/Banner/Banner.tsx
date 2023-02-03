@@ -8,11 +8,11 @@ interface Props {
 }
 
 const Banner = ({ movieTitle, movieId }: Props) => {
-  const { videoData, isLoading } = useGetVideoData(movieTitle as string);
+  // const { videoData, isLoading } = useGetVideoData(movieTitle as string);
   // const videoId = videoData?.items[0].id.videoId;
 
   const [height, setHeight] = useState(0);
-  const [aspectRatio, setAspectRatio] = useState(6);
+  const [aspectRatio, setAspectRatio] = useState(4);
 
   const updateSize = (newHeight: number) => {
     setHeight(window.innerWidth * (newHeight / 16));
@@ -38,7 +38,7 @@ const Banner = ({ movieTitle, movieId }: Props) => {
           setAspectRatio(9);
         }}
         onPause={() => {
-          setAspectRatio(5);
+          setAspectRatio(4);
         }}
       />
     </div>

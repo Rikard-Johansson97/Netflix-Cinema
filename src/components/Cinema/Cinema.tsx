@@ -28,11 +28,14 @@ const Cinema: FC<CinemaProps> = ({ movieId }) => {
           occupied: Math.random() <= 0.33,
           selected: false,
           price: 100,
+          booked: false,
         };
       });
       setSeats(seats as any);
     }
-  }, []);
+  }, [seats, setSeats]);
+
+  console.log(seats);
 
   const leftSection = seats.slice(0, 20);
   const middleSection = seats.slice(20, 40);
@@ -43,23 +46,29 @@ const Cinema: FC<CinemaProps> = ({ movieId }) => {
       <div className=' max-w-lg m-auto  -rotate-x-50'>
         {/* SCREEN */}
         <div className='aspect-video bg-greenText pb-4 pt-4 sm:pt-8 sm:pb-8 mx-4 shadow-2xl shadow-gray-700'>
-          <div className='flex flex-col justify-between items-center h-full bg-lightBackground p-4 '>
-            <div className='flex items-center gap-5'>
-              <div className='bg-highlight w-4 rounded-t-xl aspect-[10/16] border border-highlight sm:w-6'></div>
-              <p className='text-paragraph text-xl font-bold w-36 sm:text-2xl'>
+          <div className='grid grid-cols-2 items-center content-evenly h-full bg-lightBackground p-4 '>
+            <div className='flex justify-evenly items-center'>
+              <div className='bg-highlight w-4 rounded-t-xl aspect-[10/16] border border-highlight sm:w-6 '></div>
+              <p className='text-paragraph text-xl font-bold sm:text-2xl'>
                 Occupied
               </p>
             </div>
-            <div className='flex items-center gap-5'>
+            <div className='flex justify-evenly items-center'>
               <div className='bg-greenText w-4 rounded-t-xl aspect-[10/16] border border-greenText sm:w-6'></div>
-              <p className='text-paragraph text-xl font-bold w-36 sm:text-2xl'>
+              <p className='text-paragraph text-xl font-bold sm:text-2xl'>
                 Selected
               </p>
             </div>
-            <div className='flex items-center gap-5'>
+            <div className='flex justify-evenly items-center'>
               <div className='bg-background w-4 rounded-t-xl aspect-[10/16] border border-greenText sm:w-6'></div>
-              <p className='text-paragraph text-xl font-bold w-36 sm:text-2xl '>
+              <p className='text-paragraph text-xl font-bold sm:text-2xl '>
                 Available
+              </p>
+            </div>
+            <div className='flex justify-evenly items-center'>
+              <div className='bg-gradient-to-r from-background to-greenText w-4 rounded-t-xl aspect-[10/16] border border-greenText sm:w-6'></div>
+              <p className='text-paragraph text-xl font-bold sm:text-2xl '>
+                Booked
               </p>
             </div>
           </div>

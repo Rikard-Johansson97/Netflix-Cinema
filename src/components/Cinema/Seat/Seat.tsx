@@ -1,18 +1,10 @@
+import { SeatType } from "@/types/types";
 import React, { FC, useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
-interface SeatProps {
-  occupied: boolean;
-  id: string;
-  selected: boolean;
-  onCLick?: any;
-  movieId: string;
-  map?: any;
-}
-
-const Seat: FC<SeatProps> = ({ occupied, id, selected, movieId }) => {
+const Seat: FC<SeatType> = ({ occupied, id, selected, movieId, booked }) => {
   const [hasMounted, setHasMounted] = useState(false);
-  const [seats, setSeats] = useLocalStorage<JSX.Element[] | SeatProps>(
+  const [seats, setSeats] = useLocalStorage<JSX.Element[] | SeatType>(
     `seats-${movieId}`,
     []
   );
@@ -22,17 +14,10 @@ const Seat: FC<SeatProps> = ({ occupied, id, selected, movieId }) => {
   }, []);
 
   const handleClick = () => {
-    const newSeats = seats.map((seat: SeatProps) => {
-      if (!selected) {
-        if (seat.id === id) {
-          return { ...seat, selected: true };
-        }
-      } else {
-        if (seat.id === id) {
-          return { ...seat, selected: false };
-        }
+    const newSeats = seats.map((seat: SeatType) => {
+      if (seat.id === id) {
+        return { ...seat, selected: !seat.selected };
       }
-
       return seat;
     });
     setSeats(newSeats);
@@ -42,6 +27,10 @@ const Seat: FC<SeatProps> = ({ occupied, id, selected, movieId }) => {
     return null;
   }
 
+  if (booked)
+    return (
+      <div className='bg-gradient-to-r from-background to-greenText w-full rounded-b-xl aspect-[10/16] border border-greenText cursor-not-allowed mt-2 flex items-center justify-center text-xl font-bold '></div>
+    );
   if (occupied)
     return (
       <div className='bg-highlight w-full rounded-b-xl aspect-[10/16] border border-highlight cursor-not-allowed mt-2 flex items-center justify-center text-xl font-bold '></div>
@@ -50,14 +39,14 @@ const Seat: FC<SeatProps> = ({ occupied, id, selected, movieId }) => {
   if (selected)
     return (
       <div
-        className='bg-greenText w-full rounded-b-xl aspect-[10/16] border border-greenText hover:bg-greenText cursor-pointer mt-2 flex items-center justify-center text-xl font-bold '
-        onClick={() => handleClick()}></div>
+        className='bg-greenText w-full rounded-b-xl aspect-[10/16] border border-greenText hover:bg-greenText cursor-pointer mt-2 flex items-center justify-center text-xl font-bold animate-pulse'
+        onClick={handleClick}></div>
     );
   else {
     return (
       <div
-        className='bg-background w-full rounded-b-xl aspect-[10/16] border border-greenText hover:bg-greenText cursor-pointer mt-2 flex items-center justify-center text-xl font-bold hover:scale-100 hover:animate-bounce '
-        onClick={() => handleClick()}></div>
+        className='bg-background w-full rounded-b-xl aspect-[10/16] border border-greenText hover:bg-greenText cursor-pointer mt-2 flex items-center justify-center text-xl font-bold duration-200 hover:animate-bounce '
+        onClick={handleClick}></div>
     );
   }
 };

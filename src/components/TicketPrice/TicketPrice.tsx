@@ -1,12 +1,18 @@
 import { SeatType } from "@/types/types";
 import React, { FC, useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
+import { useDispatch, useSelector } from "react-redux";
+import { buyTicket } from "@/store/reducers";
+import { RootState } from "@/store/store";
 
 interface TicketPriceProps {
   movieId: string;
 }
 
 const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
+  const dispatch = useDispatch();
+  const tickets = useSelector((state: RootState) => state.ticket);
+
   const [seats, setSeats] = useLocalStorage<JSX.Element[] | SeatType>(
     `seats-${movieId}`,
     []
@@ -16,6 +22,19 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
   useEffect(() => {
     setSelectedSeats(seats.filter((s: any) => s.selected === true));
   }, [seats]);
+
+  const bookTicket = () => {
+    const newSeats = seats.map((seat: SeatType) => {
+      if (seat.selected === true) {
+        return { ...seat, booked: true, selected: false };
+      }
+      return seat;
+    });
+    setSeats(newSeats);
+    dispatch(buyTicket({ ticket: newSeats } as any));
+  };
+
+  console.log(seats);
 
   return (
     <div className='flex flex-col justify-between bg-lightBackground text-paragraph p-4 m-4 gap-2 lg:max-w-sm rounded-lg shadow-xl flex-1 mx-auto w-full max-w-2xl'>
@@ -69,7 +88,9 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
 
         <div className='flex space-x-2 justify-center'>
           <button
-            onClick={() => {}}
+            onClick={() => {
+              bookTicket();
+            }}
             type='button'
             data-mdb-ripple='true'
             data-mdb-ripple-color='light'
