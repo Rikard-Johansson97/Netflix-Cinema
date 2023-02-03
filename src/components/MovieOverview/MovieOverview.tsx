@@ -18,8 +18,8 @@ const MovieOverview: FC<MovieOverviewProps> = ({ movieId, movieData }) => {
   console.log(movieData);
 
   return (
-    <div className='-mb-10'>
-      <div className='flex flex-col  max-w-3xl m-auto p-4 '>
+    <div className='flex-1'>
+      <div className='flex flex-col m-auto p-4 '>
         <div className='rounded-md'>
           <div className='md:flex '>
             <div className='flex-col justify-center h-full items-center p-4'>

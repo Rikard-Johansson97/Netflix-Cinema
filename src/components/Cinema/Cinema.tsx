@@ -51,9 +51,7 @@ const Cinema: FC<CinemaProps> = ({ movieId }) => {
   const rightSection = seats.slice(40, 60);
 
   return (
-    <div
-      suppressHydrationWarning={true}
-      className=' p-8 s sm:p-10 perspective-10 xl:flex-1'>
+    <div className=' p-8 s sm:p-2 perspective-10 flex-1'>
       <div className='shadow-2xl max-w-lg m-auto  -rotate-x-50'>
         {/* SCREEN */}
         <div className='aspect-video bg-greenText pb-4 pt-4 sm:pt-8 sm:pb-8'>

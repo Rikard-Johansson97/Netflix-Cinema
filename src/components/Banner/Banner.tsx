@@ -11,12 +11,10 @@ const Banner = ({ movieTitle, movieId }: Props) => {
   const { videoData, isLoading } = useGetVideoData(movieTitle as string);
   // const videoId = videoData?.items[0].id.videoId;
 
-  const [width, setWidth] = useState(0);
   const [height, setHeight] = useState(0);
-  const [aspectRatio, setAspectRatio] = useState(5);
+  const [aspectRatio, setAspectRatio] = useState(6);
 
   const updateSize = (newHeight: number) => {
-    setWidth(window.innerWidth);
     setHeight(window.innerWidth * (newHeight / 16));
   };
 
@@ -33,7 +31,7 @@ const Banner = ({ movieTitle, movieId }: Props) => {
       <ReactPlayer
         className='aspect-video'
         url={`https://www.youtube.com/watch?v=t433PEQGErc&ab_channel=WarnerBros.Pictures}`}
-        width={width}
+        width={"100%"}
         height={height}
         style={{ transition: "300ms" }}
         onPlay={() => {

@@ -5,6 +5,7 @@ import Cinema from "@/components/Cinema/Cinema";
 import MovieOverview from "@/components/MovieOverview/MovieOverview";
 import Banner from "@/components/Banner/Banner";
 import useFetchMovieId from "@/hooks/useFetchMovieId";
+import TicketPrice from "@/components/TicketPrice/TicketPrice";
 
 const Movie = () => {
   const router = useRouter();
@@ -23,11 +24,16 @@ const Movie = () => {
   return (
     <div
       suppressHydrationWarning={true}
-      className='bg-lightBackground mx-auto min-h-screen w-full'>
+      className='bg-background min-h-screen w-full mx-auto'>
       <Navbar />
       <Banner movieTitle={data?.title} movieId={movieId} />
-      <MovieOverview movieId={movieId} movieData={data} />
-      <Cinema movieId={movieId} movieData={data} />
+      <div className='flex justify-center flex-col p-4 2xl:flex-row lg:justify-start'>
+        <MovieOverview movieId={movieId} movieData={data} />
+        <div className='flex flex-col m-auto lg:flex-row w-full  mx-auto flex-1'>
+          <Cinema movieId={movieId} movieData={data} />
+          <TicketPrice movieId={movieId} />
+        </div>
+      </div>
     </div>
   );
 };
