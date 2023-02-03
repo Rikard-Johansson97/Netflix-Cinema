@@ -60,3 +60,18 @@
         runtime: number;
         loading: boolean;
     }
+
+    export interface SeatType {
+        occupied: boolean;
+        id: string;
+        selected: boolean;
+        onCLick?: any;
+        movieId: string;
+        price: number;
+        map: any;
+        slice: any;
+        length: number;
+        seat: number;
+        find: () => any;
+        filter: () => any;
+      }

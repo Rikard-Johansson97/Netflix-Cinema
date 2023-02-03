@@ -4,23 +4,11 @@ import Seat from "./Seat/Seat";
 import { v4 as uuidv4 } from "uuid";
 import { useLocalStorage } from "usehooks-ts";
 import Booking from "../MovieOverview/MovieOverview";
-import { Movie } from "@/types/types";
+import { Movie, SeatType } from "@/types/types";
 
 interface CinemaProps {
   movieId: string | any;
   movieData?: Movie | undefined;
-}
-
-interface SeatType {
-  occupied: boolean;
-  id: string;
-  selected: boolean;
-  onCLick?: any;
-  movieId: string;
-  map: any;
-  slice: any;
-  length: number;
-  seat: number;
 }
 
 const Cinema: FC<CinemaProps> = ({ movieId }) => {
@@ -51,11 +39,11 @@ const Cinema: FC<CinemaProps> = ({ movieId }) => {
   const rightSection = seats.slice(40, 60);
 
   return (
-    <div className=' p-8 s sm:p-2 perspective-10 flex-1'>
-      <div className='shadow-2xl max-w-lg m-auto  -rotate-x-50'>
+    <div className=' p-2 perspective-10 flex-1'>
+      <div className=' max-w-lg m-auto  -rotate-x-50'>
         {/* SCREEN */}
-        <div className='aspect-video bg-greenText pb-4 pt-4 sm:pt-8 sm:pb-8'>
-          <div className='flex flex-col justify-between items-center h-full bg-background p-4 '>
+        <div className='aspect-video bg-greenText pb-4 pt-4 sm:pt-8 sm:pb-8 mx-4 shadow-2xl shadow-gray-700'>
+          <div className='flex flex-col justify-between items-center h-full bg-lightBackground p-4 '>
             <div className='flex items-center gap-5'>
               <div className='bg-highlight w-4 rounded-t-xl aspect-[10/16] border border-highlight sm:w-6'></div>
               <p className='text-paragraph text-xl font-bold w-36 sm:text-2xl'>

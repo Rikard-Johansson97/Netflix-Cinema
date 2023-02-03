@@ -44,19 +44,19 @@ const Seat: FC<SeatProps> = ({ occupied, id, selected, movieId }) => {
 
   if (occupied)
     return (
-      <div className='bg-highlight w-full rounded-b-xl aspect-[10/16] border border-highlight cursor-not-allowed mt-2 flex items-center justify-center text-xl font-bold'></div>
+      <div className='bg-highlight w-full rounded-b-xl aspect-[10/16] border border-highlight cursor-not-allowed mt-2 flex items-center justify-center text-xl font-bold '></div>
     );
 
   if (selected)
     return (
       <div
-        className='bg-greenText w-full rounded-b-xl aspect-[10/16] border border-greenText hover:bg-greenText cursor-pointer mt-2 flex items-center justify-center text-xl font-bold'
+        className='bg-greenText w-full rounded-b-xl aspect-[10/16] border border-greenText hover:bg-greenText cursor-pointer mt-2 flex items-center justify-center text-xl font-bold '
         onClick={() => handleClick()}></div>
     );
   else {
     return (
       <div
-        className='bg-background w-full rounded-b-xl aspect-[10/16] border border-greenText hover:bg-greenText cursor-pointer mt-2 flex items-center justify-center text-xl font-bold'
+        className='bg-background w-full rounded-b-xl aspect-[10/16] border border-greenText hover:bg-greenText cursor-pointer mt-2 flex items-center justify-center text-xl font-bold hover:scale-100 hover:animate-bounce '
         onClick={() => handleClick()}></div>
     );
   }

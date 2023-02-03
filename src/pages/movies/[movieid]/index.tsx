@@ -24,12 +24,12 @@ const Movie = () => {
   return (
     <div
       suppressHydrationWarning={true}
-      className='bg-background min-h-screen w-full mx-auto'>
+      className='bg-background min-h-screen w-full mx-auto '>
       <Navbar />
       <Banner movieTitle={data?.title} movieId={movieId} />
-      <div className='flex justify-center flex-col p-4 2xl:flex-row lg:justify-start'>
+      <div className='flex justify-center flex-col 2xl:flex-row lg:justify-start sm:p-10 p-4 items-start'>
         <MovieOverview movieId={movieId} movieData={data} />
-        <div className='flex flex-col m-auto lg:flex-row w-full  mx-auto flex-1'>
+        <div className='flex flex-col lg:items-start m-auto lg:flex-row w-full mx-auto flex-1 '>
           <Cinema movieId={movieId} movieData={data} />
           <TicketPrice movieId={movieId} />
         </div>
