@@ -6,7 +6,7 @@ import { buyTicket } from "@/store/reducers";
 import { RootState } from "@/store/store";
 
 interface TicketPriceProps {
-  movieId: string;
+  movieId: string | string[] | undefined;
 }
 
 const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {

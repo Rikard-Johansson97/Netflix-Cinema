@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import MovieOverview from "../MovieOverview/MovieOverview";
 interface Props {
   movieTitle: string | undefined;
-  movieId: string;
+  movieId: string | string[] | undefined;
 }
 
 const Banner = ({ movieTitle, movieId }: Props) => {

@@ -1,16 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import { Fragment, useContext, useState } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  ChevronDownIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { useContext, useState } from "react";
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import DropMenu from "../DropMenu/DropMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FilterContext } from "@/context/filterContext";
+import MobileNavbar from "../MobileNavbar/MobileNavbar";
 
 const navigation = [
   { name: "Movies", value: "movie", href: "/movies/", current: true },
@@ -39,6 +36,7 @@ export default function Navbar() {
     { name: "Low to High", function: () => setOrder("1") },
     { name: "High to Low", function: () => setOrder("-1") },
   ];
+
   const genres = [
     { name: "RESET", function: () => setGenre("") },
     { name: "Action", function: () => setGenre("Action") },
@@ -195,74 +193,15 @@ export default function Navbar() {
               </div>
             )}
           </div>
-          <Disclosure.Panel className='sm:hidden'>
-            <div className='space-y-1 px-2 pt-2 pb-3'>
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as='a'
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-lightBackground text-white"
-                      : "text-paragraph hover:bg-greenText hover:text-white",
-                    "block px-3 py-2 rounded-md text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}>
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-              <div aria-current={showGenres ? "page" : undefined}>
-                <button
-                  onClick={() => setShowGenres(!showGenres)}
-                  className='inline-flex justify-center rounded-md bg-background px-4 py-2 text-sm font-medium text-paragraph shadow-sm hover:bg-lightBackground focus:outline-none focus:ring-2 focus:ring-greenText'>
-                  Genres
-                  <ChevronDownIcon
-                    className='-mr-1 ml-2 h-5 w-5'
-                    aria-hidden='true'
-                  />
-                </button>
-              </div>
-              {showGenres && (
-                <div className='px-4'>
-                  {genres.map((genre, i) => (
-                    <Disclosure.Button
-                      key={i}
-                      as='a'
-                      className='text-paragraph hover:bg-greenText hover:text-background cursor-pointer
-                      block px-4 py-2 rounded-md text-base font-small'>
-                      {genre.name}
-                    </Disclosure.Button>
-                  ))}
-                </div>
-              )}
-              <div aria-current={showGenres ? "page" : undefined}>
-                <button
-                  onClick={() => setShowFilter(!showFilter)}
-                  className='inline-flex justify-center rounded-md bg-background px-4 py-2 text-sm font-medium text-paragraph shadow-sm hover:bg-lightBackground focus:outline-none focus:ring-2 focus:ring-greenText'>
-                  Filter
-                  <ChevronDownIcon
-                    className='-mr-1 ml-2 h-5 w-5'
-                    aria-hidden='true'
-                  />
-                </button>
-              </div>
-
-              {showFilter && (
-                <div className='px-4'>
-                  {sort.map((item, i) => (
-                    <Disclosure.Button
-                      key={i}
-                      as='a'
-                      className='text-paragraph hover:bg-greenText hover:text-background cursor-pointer
-                      block px-4 py-2 rounded-md text-base font-small'>
-                      {item.name}
-                    </Disclosure.Button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </Disclosure.Panel>
+          <MobileNavbar
+            navigation={navigation}
+            showGenres={showGenres}
+            setShowGenres={setShowGenres}
+            showFilter={showFilter}
+            setShowFilter={setShowFilter}
+            genres={genres}
+            sort={sort}
+          />
         </>
       )}
     </Disclosure>

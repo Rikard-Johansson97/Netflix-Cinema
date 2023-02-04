@@ -21,17 +21,19 @@ const Movie = () => {
 
   if (loading) return <h2>LOADING</h2>;
 
+  console.log(movieId);
+
   return (
     <div
       suppressHydrationWarning={true}
       className='bg-background min-h-screen w-full mx-auto '>
       <Navbar />
-      <Banner movieTitle={data?.title} movieId={movieId} />
+      <Banner movieTitle={data?.title} movieId={movieid} />
       <div className='flex justify-center flex-col 2xl:flex-row lg:justify-start sm:p-10 p-4 items-start'>
-        <MovieOverview movieId={movieId} movieData={data} />
+        <MovieOverview movieId={movieid} movieData={data} />
         <div className='flex flex-col lg:items-start m-auto lg:flex-row w-full mx-auto flex-1 '>
-          <Cinema movieId={movieId} movieData={data} />
-          <TicketPrice movieId={movieId} />
+          <Cinema movieId={movieid} movieData={data} />
+          <TicketPrice movieId={movieid} />
         </div>
       </div>
     </div>
