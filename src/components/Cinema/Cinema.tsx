@@ -1,9 +1,7 @@
-import { useRouter } from "next/router";
 import React, { useState, useEffect, FC } from "react";
 import Seat from "./Seat/Seat";
 import { v4 as uuidv4 } from "uuid";
 import { useLocalStorage } from "usehooks-ts";
-import Booking from "../MovieOverview/MovieOverview";
 import { Movie, SeatType } from "@/types/types";
 
 interface CinemaProps {
@@ -11,7 +9,7 @@ interface CinemaProps {
   movieData?: Movie | undefined;
 }
 
-const Cinema: FC<CinemaProps> = ({ movieId }) => {
+const Cinema: FC<CinemaProps> = ({ movieId, movieData }) => {
   const [seats, setSeats] = useLocalStorage<JSX.Element[] | SeatType>(
     `seats-${movieId}`,
     []
@@ -29,6 +27,8 @@ const Cinema: FC<CinemaProps> = ({ movieId }) => {
           selected: false,
           price: 100,
           booked: false,
+          movieName: movieData?.title,
+          Image: movieData?.poster,
         };
       });
       setSeats(seats as any);

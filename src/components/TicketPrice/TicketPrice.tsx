@@ -4,12 +4,14 @@ import { useLocalStorage } from "usehooks-ts";
 import { useDispatch, useSelector } from "react-redux";
 import { buyTicket } from "@/store/reducers";
 import { RootState } from "@/store/store";
+import Checkout from "../Checkout/Checkout";
 
 interface TicketPriceProps {
   movieId: string | string[] | undefined;
 }
 
 const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
+  const [bookedSeats, setBookedSeats] = useState<SeatType[]>([]);
   const dispatch = useDispatch();
   const tickets = useSelector((state: RootState) => state.ticket);
 
@@ -26,6 +28,7 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
   const bookTicket = () => {
     const newSeats = seats.map((seat: SeatType) => {
       if (seat.selected === true) {
+        bookedSeats.push(seat);
         return { ...seat, booked: true, selected: false };
       }
       return seat;
@@ -34,7 +37,7 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
     dispatch(buyTicket({ ticket: newSeats } as any));
   };
 
-  console.log(seats);
+  console.log(bookedSeats);
 
   return (
     <div className='flex flex-col justify-between bg-lightBackground text-paragraph p-4 m-4 gap-2 lg:max-w-sm rounded-lg shadow-xl flex-1 mx-auto w-full max-w-2xl'>
@@ -74,7 +77,6 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
         ) : (
           ""
         )}
-
         <div className='flex justify-between text-base border-t-2 font-bold border-greenText py-4'>
           <p className='flex-1 text-headline'>Total</p>
           <p className='flex-1 text-center'>{selectedSeats?.length}</p>
@@ -85,7 +87,6 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
             kr
           </p>
         </div>
-
         <div className='flex space-x-2 justify-center'>
           <button
             onClick={() => {
@@ -99,6 +100,7 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
           </button>
         </div>
       </div>
+      <Checkout bookedSeats={bookedSeats} />
     </div>
   );
 };

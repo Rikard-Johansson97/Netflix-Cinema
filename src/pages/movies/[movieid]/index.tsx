@@ -21,8 +21,6 @@ const Movie = () => {
 
   if (loading) return <h2>LOADING</h2>;
 
-  console.log(movieId);
-
   return (
     <div
       suppressHydrationWarning={true}

@@ -73,6 +73,8 @@
         length: number;
         seat: number;
         booked: boolean;
+        movieName: string;
+        image: string;
         find: () => any;
         filter: () => any;
       }
