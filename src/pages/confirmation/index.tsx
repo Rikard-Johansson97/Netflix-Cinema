@@ -32,8 +32,8 @@ const Confirmation: FC<ConfirmationProps> = ({}) => {
   return (
     <iframe
       title='klarnaCheckout'
-      className='h-100vh'
-      height={"520px"}
+      style={{ height: "300vh" }}
+      height={400}
       width={"100%"}
       srcDoc={klarnaHtml(response?.html_snippet)}
       frameBorder='0'></iframe>

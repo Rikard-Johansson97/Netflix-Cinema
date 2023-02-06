@@ -15,8 +15,6 @@ const Checkout: FC<CheckoutProps> = ({ seats }) => {
     }
   });
 
-  console.log(response?.html_snippet);
-
   const placeOrder = async (bookedSeats: SeatType[]) => {
     console.log(bookedSeats);
     const res = await fetch("/api/klarna", {
@@ -38,8 +36,7 @@ const Checkout: FC<CheckoutProps> = ({ seats }) => {
   return (
     <iframe
       title='klarnaCheckout'
-      className='h-100vh'
-      height={"520px"}
+      height={"870px"}
       srcDoc={klarnaHtml(response?.html_snippet)}
       frameBorder='0'></iframe>
   );

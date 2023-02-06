@@ -8,8 +8,8 @@ interface Props {
 }
 
 const Banner = ({ movieTitle, movieId }: Props) => {
-  // const { videoData, isLoading } = useGetVideoData(movieTitle as string);
-  // const videoId = videoData?.items[0].id.videoId;
+  const { videoData, isLoading } = useGetVideoData(movieTitle as string);
+  const videoId = videoData?.items[0].id.videoId;
 
   const [height, setHeight] = useState(0);
   const [aspectRatio, setAspectRatio] = useState(4);
@@ -30,7 +30,7 @@ const Banner = ({ movieTitle, movieId }: Props) => {
     <div className=''>
       <ReactPlayer
         className='aspect-video'
-        url={`https://www.youtube.com/watch?v=t433PEQGErc&ab_channel=WarnerBros.Pictures}`}
+        url={`https://www.youtube.com/watch?v=${videoId}}`}
         width={"100%"}
         height={height}
         style={{ transition: "300ms" }}
