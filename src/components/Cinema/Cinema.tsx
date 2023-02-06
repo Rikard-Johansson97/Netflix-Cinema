@@ -35,8 +35,6 @@ const Cinema: FC<CinemaProps> = ({ movieId, movieData }) => {
     }
   }, [seats, setSeats]);
 
-  console.log(seats);
-
   const leftSection = seats.slice(0, 20);
   const middleSection = seats.slice(20, 40);
   const rightSection = seats.slice(40, 60);

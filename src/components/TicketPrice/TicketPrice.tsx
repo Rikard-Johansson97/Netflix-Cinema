@@ -15,10 +15,7 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
   const dispatch = useDispatch();
   const tickets = useSelector((state: RootState) => state.ticket);
 
-  const [seats, setSeats] = useLocalStorage<JSX.Element[] | SeatType>(
-    `seats-${movieId}`,
-    []
-  );
+  const [seats, setSeats] = useLocalStorage<SeatType[]>(`seats-${movieId}`, []);
   const [selectedSeats, setSelectedSeats] = useState<SeatType[] | null>(null);
 
   useEffect(() => {
@@ -28,7 +25,6 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
   const bookTicket = () => {
     const newSeats = seats.map((seat: SeatType) => {
       if (seat.selected === true) {
-        bookedSeats.push(seat);
         return { ...seat, booked: true, selected: false };
       }
       return seat;
@@ -36,8 +32,6 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
     setSeats(newSeats);
     dispatch(buyTicket({ ticket: newSeats } as any));
   };
-
-  console.log(bookedSeats);
 
   return (
     <div className='flex flex-col justify-between bg-lightBackground text-paragraph p-4 m-4 gap-2 lg:max-w-sm rounded-lg shadow-xl flex-1 mx-auto w-full max-w-2xl'>
@@ -100,7 +94,7 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
           </button>
         </div>
       </div>
-      <Checkout bookedSeats={bookedSeats} />
+      <Checkout seats={seats} />
     </div>
   );
 };

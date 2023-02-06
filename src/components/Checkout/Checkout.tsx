@@ -1,22 +1,30 @@
-import { RootState } from "@/store/store";
 import React, { FC, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { SeatType } from "@/types/types";
+import parse from "html-react-parser";
+import { klarnaHtml } from "@/utils/formatHtmlSnippet";
 
 interface CheckoutProps {
-  bookedSeats: SeatType[];
+  seats: SeatType[];
 }
 
-const Checkout: FC<CheckoutProps> = ({ bookedSeats }) => {
+const Checkout: FC<CheckoutProps> = ({ seats }) => {
   const [response, setResponse] = useState<any>(null);
+  const bookedSeats = seats.filter((seat: SeatType) => {
+    if (seat.booked) {
+      return seat;
+    }
+  });
 
-  const placeOrder = async (Tickets: SeatType[]) => {
+  console.log(response?.html_snippet);
+
+  const placeOrder = async (bookedSeats: SeatType[]) => {
+    console.log(bookedSeats);
     const res = await fetch("/api/klarna", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ bookedSeats }),
+      body: JSON.stringify(bookedSeats),
     });
     if (res.status !== 200) return;
     const data = await res.json();
@@ -25,11 +33,16 @@ const Checkout: FC<CheckoutProps> = ({ bookedSeats }) => {
 
   useEffect(() => {
     placeOrder(bookedSeats);
-  }, [bookedSeats]);
+  }, []);
 
-  console.log(bookedSeats);
-
-  return <div></div>;
+  return (
+    <iframe
+      title='klarnaCheckout'
+      className='h-100vh'
+      height={"520px"}
+      srcDoc={klarnaHtml(response?.html_snippet)}
+      frameBorder='0'></iframe>
+  );
 };
 
 export default Checkout;
