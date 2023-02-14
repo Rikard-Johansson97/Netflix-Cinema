@@ -35,7 +35,7 @@ const MobileNavbar: FC<MobileNavbarProps> = ({
   return (
     <Disclosure.Panel className='sm:hidden'>
       <div className='space-y-1 px-2 pt-2 pb-3'>
-        {navigation.map((item) => (
+        {navigation.map((item: any) => (
           <Disclosure.Button
             key={item.name}
             as='a'
@@ -68,7 +68,7 @@ const MobileNavbar: FC<MobileNavbarProps> = ({
                 href='/movies'
                 as={`/movies/${genre.name}`}
                 onClick={() => {
-                  item.function();
+                  genre.function();
                 }}
                 key={i}
                 className='text-paragraph hover:bg-greenText hover:text-background cursor-pointer

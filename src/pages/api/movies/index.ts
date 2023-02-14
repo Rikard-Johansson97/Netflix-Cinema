@@ -23,7 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         title: search ? { $regex: search, $options: 'i' } : { $exists: true },
       })
 
-      .sort({ [sort]: order })
+      .sort( { [sort as string ] : order  } as any )
       .limit(limit)
       .toArray();
 
