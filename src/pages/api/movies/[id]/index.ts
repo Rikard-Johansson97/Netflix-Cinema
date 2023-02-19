@@ -5,7 +5,10 @@ import { ObjectId } from "mongodb";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const id = req.query.id;
-  console.log(id);
+  if (!id) {
+    return res.status(400).json({ message: "Invalid ID" });
+  }
+
   try {
     const client = await clientPromise;
     // Get the "sample_mflix" database

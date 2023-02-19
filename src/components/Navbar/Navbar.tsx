@@ -11,7 +11,6 @@ import MobileNavbar from "../MobileNavbar/MobileNavbar";
 
 const navigation = [
   { name: "Movies", value: "movie", href: "/movies/", current: true },
-  { name: "Series", value: "series", href: "/series", current: false },
 ];
 
 function classNames(...classes: string[]) {

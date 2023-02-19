@@ -65,7 +65,7 @@ const MobileNavbar: FC<MobileNavbarProps> = ({
           <div className='px-4'>
             {genres.map((genre, i) => (
               <Link
-                href='/movies'
+                href='/'
                 as={`/movies/${genre.name}`}
                 onClick={() => {
                   genre.function();

@@ -4,7 +4,7 @@ import React, { createContext, useState } from "react";
 const initialData: FilterContextData = {
   type: "movie",
   sort: "year",
-  limit: "20",
+  limit: "40",
   order: "-1",
   genre: "",
   search: "",

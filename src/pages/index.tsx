@@ -9,12 +9,6 @@ import { FilterContext } from "@/context/filterContext";
 export default function Home() {
   const { type, sort, order, limit, genre, search } = useContext(FilterContext);
 
-  console.log(search);
-
-  // const { videoData, isLoading } = useGetVideoData("godfather");
-  // if (isLoading || !videoData) {
-  //   return <p>Loading...</p>;
-  // }
   return (
     <>
       <Head>
@@ -22,7 +16,6 @@ export default function Home() {
 
         <link rel='icon' href='/favicon.ico' />
       </Head>
-
       <main className=' bg-lightBackground mx-auto min-h-screen'>
         <Navbar />
         {/* <Banner videoData={videoData} /> */}

@@ -12,6 +12,7 @@ interface TicketPriceProps {
 
 const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
   const [bookedSeats, setBookedSeats] = useState<SeatType[]>([]);
+  const [showCheckout, setShowCheckout] = useState(false);
   const dispatch = useDispatch();
   const tickets = useSelector((state: RootState) => state.ticket);
 
@@ -85,6 +86,7 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
           <button
             onClick={() => {
               bookTicket();
+              setShowCheckout(true); //
             }}
             type='button'
             data-mdb-ripple='true'
@@ -94,7 +96,7 @@ const TicketPrice: FC<TicketPriceProps> = ({ movieId }) => {
           </button>
         </div>
       </div>
-      <Checkout seats={seats} />
+      {showCheckout && <Checkout seats={seats} />}
     </div>
   );
 };
